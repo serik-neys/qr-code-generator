@@ -6,7 +6,7 @@ function App() {
   const [value, setValue] = useState('')
   return (
     <div className='container mx-auto w-2/4'>
-      <h1 className='py-4 font-bold text-center text-2xl'>Student Qt code</h1>
+      <h1 className='py-4 font-bold text-center text-2xl'>StudQR</h1>
       <p className='mb-4'>Инструкциясы: Вебсайттын ссылкасын қойыңыз</p>
       <input
       onChange={(e) => setValue(e.target.value) }
