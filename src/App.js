@@ -9,6 +9,7 @@ function App() {
   const [value, setValue] = useState('')
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
+  const [camera, setCamera] = useState("users")
   const [data, setData] = useState("");
 
   const hadleScan = (result, error) => {
@@ -24,7 +25,7 @@ function App() {
   }
 
   return (
-    <div className='container mx-auto w-2/4'>
+    <div className='container mx-auto '>
       <h1 className='py-4 font-bold text-center text-2xl'>StudQR</h1>
       <p className='mb-4'>Инструкциясы: Вебсайттын ссылкасын қойыңыз</p>
       <input
@@ -39,13 +40,12 @@ function App() {
         value={value}
       />
 
-      <div className='mt-5  pt-4 border-t-4'>
-        <h1 className='font-bold text-center text-2xl'>QR code scanner</h1>
+      <div className='mt-5 pt-4 border-t-4'>
+        <h1 className=' mb-4 font-bold text-center text-2xl'>QR code scanner</h1>
         <button
           className=' bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
           onClick={() => {
             setStartScan(!startScan);
-            setLoadingScan(true)
           }}
         >
           {startScan ? "Stop Scan" : "Start Scan"}
@@ -56,13 +56,22 @@ function App() {
 
         {startScan && (
           <>
-            <QrReader
-              onResult={hadleScan}
-              style={{ width: '100%'}}
-            />
+            <select className='ml-3 border' onChange={(e) => setCamera(e.target.value)}>
+              <option value={"environment"}>Задняя Камера</option>
+              <option value={"user"}>Пеедняя Камера</option>
+            </select>
+            <div className='p-3'>
+              <QrReader
+                className='max-w-xl mx-auto mt-1'
+                constraints={{ facingMode: camera }}
+                onResult={hadleScan}
+                style={{ width: '100%' }}
+              />
+            </div>
+
           </>
         )}
-       
+
       </div>
     </div>
   )
