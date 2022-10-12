@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import QRCode from "react-qr-code"
 import { QrReader } from "react-qr-reader";
 
-
 //https://github.com/TylerPottsDev/yt-react-qr-generator
 
 function App() {
   const [value, setValue] = useState('')
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
-  const [camera, setCamera] = useState("users")
+  const [camera, setCamera] = useState("user")
   const [data, setData] = useState("");
 
   const hadleScan = (result, error) => {
@@ -25,7 +24,7 @@ function App() {
   }
 
   return (
-    <div className='container mx-auto '>
+    <div className=' p-3 container mx-auto '>
       <h1 className='py-4 font-bold text-center text-2xl'>StudQR</h1>
       <p className='mb-4'>Инструкциясы: Вебсайттын ссылкасын қойыңыз</p>
       <input
@@ -57,13 +56,15 @@ function App() {
         {startScan && (
           <>
             <select className='ml-3 border' onChange={(e) => setCamera(e.target.value)}>
-              <option value={"environment"}>Задняя Камера</option>
-              <option value={"user"}>Пеедняя Камера</option>
+              <option value={"environment"}>Camera 1</option>
+              <option value={"user"}>Camera 2</option>
+              {/* <option value={{exact: "user"}}>Camera 3</option>
+              <option value={{exact: "user"}}>Camera 4</option> */}
             </select>
             <div className='p-3'>
               <QrReader
                 className='max-w-xl mx-auto mt-1'
-                constraints={{ facingMode: camera }}
+                constraints={{ facingMode: {exact: "environment"} }}
                 onResult={hadleScan}
                 style={{ width: '100%' }}
               />
