@@ -11,6 +11,10 @@ function App() {
   const [camera, setCamera] = useState("user")
   const [data, setData] = useState("");
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  let isDesktop = (width > 768);
+
   const hadleScan = (result, error) => {
     setLoadingScan(false)
     if (!!result) {
@@ -64,7 +68,19 @@ function App() {
             <div className='p-3'>
               <QrReader
                 className='max-w-xl mx-auto mt-1'
-                constraints={{ facingMode: {exact: "environment"} }}
+                constraints={
+                  isDesktop
+                  ? {
+                    video: {
+                      facingMode: { exact: `user` }
+                    }
+                  }
+                  : {
+                      video: {
+                          facingMode: { exact: `environment` }
+                      }
+                    }
+                }
                 onResult={hadleScan}
                 style={{ width: '100%' }}
               />
